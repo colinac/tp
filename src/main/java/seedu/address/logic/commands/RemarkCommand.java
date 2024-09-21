@@ -19,9 +19,6 @@ public class RemarkCommand extends Command {
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Remark: %2$s";
 
-    private final Index index;
-    private final Remark remark;
-
     public static final String COMMAND_WORD = "remark";
 
     public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
@@ -35,6 +32,11 @@ public class RemarkCommand extends Command {
             + "r/ [REMARK]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "r/ Likes to swim.";
+
+
+    private final Index index;
+    private final Remark remark;
+
 
     /**
      * @param index of the person in the filtered person list to edit the remark
