@@ -286,14 +286,125 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                       | edit a record after submitting it  | I can make modifications to erroneous records which may have been submitted after keying a command in too quickly |
 | `* * *`  | user                       | delete a patient's record          | remove entries that I no longer need                                                                              |
 | `* * *`  | user                       | search for a patient by name or ID | I can quickly access their information when needed                                                                |
-| `* * *`  | user                       | archive data 	                     | Patients data can be restored should the records be corrupted                                                     |
+| `* * *`  | user                       | backup data 	                      | Patients data can be restored should the records be corrupted                                                     |
 | `* * `   | user who may make mistakes | undo commands                      | I can reverse recently executed commands if the command should not have been executed                             |
 
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `ClinicBuddy` and the **Actor** is the `user`, unless specified otherwise)
 
+**Use case: Add a new patient**
+
+**MSS**
+
+1. User chooses to add a patient record.
+2. ClinicBuddy adds a record.
+
+Use case ends.
+
+Extensions:
+- 1a. Patient information contains fields with incorrect format.
+  - 1a1. ClinicBuddy provides an error message informing the user of the error. 
+  - Use case ends.
+
+**Use case: Delete a person**
+
+**MSS**
+
+1. User inputs the NRIC of the patient whose record they want to delete to request for ClinicBuddy to delete that record.
+2. ClinicBuddy deletes the record.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. The NRIC is not of the correct format
+  - 1a1. ClinicBuddy shows an error message. 
+  - Use case ends.
+* 2a. The NRIC is not in the records.
+  - 2a1. ClinicBuddy provides an error message informing the user of the error. 
+  - Use case ends.
+ 
+**Use case: Edit a patient record**
+
+**MSS**
+
+1. User inputs the NRIC of the patient and the parameters to update.
+2. ClinicBuddy update the record.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. The NRIC is not of the correct format
+    - 1a1. ClinicBuddy shows an error message.
+    - Use case ends.
+* 1b. The NRIC is not in the records.
+    - 1b1. ClinicBuddy provides an error message informing the user of the error.
+    - Use case ends.
+* 1c. The parameter format is invalid.
+    - 1c1. ClinicBuddy provides an error message informing the user of the error.
+    - Use case ends.
+
+**Use case: Search a record**
+
+**MSS**
+
+1. User inputs the NRIC or the name of the patient to search for.
+2. ClinicBuddy search and return the record.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. The NRIC is not of the correct format
+    - 1a1. ClinicBuddy shows an error message.
+    - Use case ends.
+* 1b. No matching patient records are found.
+    - 1b1. ClinicBuddy displays a message indicating no matches were found.
+    - Use case ends.
+
+**Use case: Backup data**
+
+**MSS**
+
+1. User inputs the command with the destination path to store the file.
+2. ClinicBuddy creates a backup file in the destination path.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. The destination path is invalid
+    - 1a1. ClinicBuddy displays an error message to inform the user.
+    - Use case ends.
+* 1b. Backup failure due to system issues
+    - 1b1. ClinicBuddy displays an error message to inform the user.
+    - Use case ends.
+* 2a. Backup file with the same name already exists
+    - 2a1. ClinicBuddy prompts the user to confirm if they want to overwrite the existing file.
+        If Yes: The backup file is overwritten.
+        If No: The user is prompted to provide a new destination path or filename.
+    - Use case ends.
+
+**Use case: Undo a command**
+
+**MSS**
+
+1. User requests to undo the last command.
+2. ClinicBuddy reverts the system state to before the last command.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. There are no commands to undo.
+    - 1a1. ClinicBuddy informs the user that there is no action to undo.
+    - Use case ends.
+
+
+Example
 **Use case: Delete a person**
 
 **MSS**
@@ -359,6 +470,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **API (Application Programming Interface)**: A set of rules and protocols for building and interacting with software applications, specifying how components communicate
+* **Parser**: A component that interprets user commands and translates them into Command objects for execution
+* **AddressBook**: A digital record that stores contact information for individuals including names, addresses, phone numbers, and other relevant details
+* **Command**: A directive issued by a user to a software application to perform a specific action or operation
+* **CommandResult**: An object that encapsulates the result of executing a command, including success status and any output messages
 
 --------------------------------------------------------------------------------------------------------------------
 
